@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateHand : MonoBehaviour
 {
-    private float turnAround = 1.0f;
+    private float turnAround = -6;
 
     [SerializeField]
     private bool useDeltaTime;
@@ -15,10 +15,12 @@ public class RotateHand : MonoBehaviour
         if (!useDeltaTime)
         {
             // rotate transform by turnAmount
+            transform.Rotate(new Vector3(0, 0, turnAround));
         }
         else
         {
             // rotate transform by turnAmount * Time.deltaTime
+            transform.Rotate(new Vector3(0, 0, turnAround) * Time.deltaTime);
         }
     }
 }
