@@ -23,4 +23,9 @@ public class RotateHand : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, turnAround) * Time.deltaTime);
         }
     }
+
+    public void switchTime()
+    {
+        useDeltaTime = !useDeltaTime;
+    }
 }
