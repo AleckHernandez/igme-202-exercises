@@ -14,5 +14,9 @@ public class MovementController : MonoBehaviour
     {
         Vector3 v3 = controller.direction;
         transform.position += v3 * speed * Time.deltaTime;
+        if (v3 != Vector3.zero)
+        {
+            transform.up = v3;
+        }
     }
 }
