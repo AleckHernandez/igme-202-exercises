@@ -5,7 +5,16 @@ using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
-    public Vector3 direction = Vector3.zero;
+    private Vector3 direction = Vector3.zero;
+
+    public Vector3 Direction
+    {
+        get { return direction; }
+        set
+        {
+            direction = value.normalized;
+        }
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -18,5 +27,7 @@ public class InputController : MonoBehaviour
         {
             direction = Vector3.zero;
         }
+
+        
     }
 }

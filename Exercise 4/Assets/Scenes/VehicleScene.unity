@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 2126958917}
   - component: {fileID: 2126958916}
   - component: {fileID: 2126958915}
+  - component: {fileID: 2126958919}
   - component: {fileID: 2126958914}
   m_Layer: 0
   m_Name: Car
@@ -315,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9583867bdbccda4eb2797ab9b85836f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
 --- !u!212 &2126958917
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -376,10 +376,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126958913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6892609, y: -0.46995002, z: 0.07379776}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2126958919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126958913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e602e67ad23b474f92e55cb809bdd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundsX: 8.5
+  boundsY: 5.5

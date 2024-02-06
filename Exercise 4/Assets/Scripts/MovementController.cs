@@ -12,7 +12,7 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 v3 = controller.direction;
+        Vector3 v3 = controller.Direction;
         transform.position += v3 * speed * Time.deltaTime;
         if (v3 != Vector3.zero)
         {
