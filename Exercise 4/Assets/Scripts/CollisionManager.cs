@@ -14,19 +14,24 @@ public class CollisionManager : MonoBehaviour
 
     private bool aabb = true;
 
-    public bool AABBCollision(SpriteInfo spriteA, SpriteInfo spriteB)
+    private bool AABBCollision(SpriteInfo spriteA, SpriteInfo spriteB)
     {
-        bool collision = (spriteB.min.x < spriteA.max.x && spriteB.max.x > spriteA.min.x &&
+        return (spriteB.min.x < spriteA.max.x && spriteB.max.x > spriteA.min.x &&
             spriteB.max.y > spriteA.min.y && spriteB.min.y < spriteA.max.y);
+    }
 
-        return collision;
+    private bool CircleCollision(SpriteInfo spriteA, SpriteInfo spriteB)
+    {
+        Vector3 dVec = spriteA.pos - spriteB.pos; // distance vector
+        float dist = dVec.magnitude; // magnitude of distance vector
+        return dist < (spriteA.radius + spriteB.radius);
     }
 
     private void Awake()
     {
+        sprites = new List<SpriteInfo>();
         foreach (GameObject obj in collidable)
         {
-            Debug.Log(obj);
             sprites.Add(obj.GetComponent<SpriteInfo>());
         }
         playerSprite = playerObject.GetComponent<SpriteInfo>();
@@ -35,39 +40,45 @@ public class CollisionManager : MonoBehaviour
 
     private void Update()
     {
-        if (aabb)
+        int count = 0;
+        foreach (SpriteInfo sprite in sprites)
         {
-            int count = 0;
-            foreach (SpriteInfo sprite in sprites)
+            bool c;
+            if (aabb) // if using AABB method
             {
-                bool c = AABBCollision(sprite, playerSprite);
-                if (c)
-                {
-                    count++;
-                    sprite.spriteRenderer.color = Color.red;
-                }
-                else
-                {
-                    sprite.spriteRenderer.color = Color.white;
-                }
-
+                c = AABBCollision(sprite, playerSprite);
             }
-            if (count > 0) // if player hit more than 0 objects
+            else // use circle method
             {
-                playerSprite.spriteRenderer.color = Color.red; // set color to red
-                count = 0; // reset count
+                c = CircleCollision(sprite, playerSprite);
             }
-            else // player hit no objects
-            {
-                playerSprite.spriteRenderer.color= Color.white;
-            }
-
+            sprite.hit = c;
+            count += c ? 1 : 0; // adds 1 to count if c is true
         }
+        if (count > 0) // if player hit more than 0 objects
+        {
+            playerSprite.hit = true; // set color to red
+            count = 0; // reset count
+        }
+        else // player hit no objects
+        {
+            playerSprite.hit = false;
+        }
+
     }
 
 
     public void SwitchMethods()
     {
         aabb = !aabb;
+        if (aabb)
+        {
+            Debug.Log("AABB");
+        }
+        else
+        {
+            Debug.Log("Circle");
+        }
     }
+
 }
