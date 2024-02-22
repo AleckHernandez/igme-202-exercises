@@ -52,6 +52,32 @@ public class SpawnManager : Singleton<SpawnManager>
         return mean + stdDev * gaussValue;
     }
 
+    public AnimalTypes PickRandomCreature()
+    {
+        float rand = Random.Range(0f, 1f);
+        
+        if (rand < .25f)
+        {
+            return AnimalTypes.Elephant;
+        }
+        else if (rand < .55f)
+        {
+            return AnimalTypes.Kangaroo;
+        }
+        else if (rand < .65f)
+        {
+            return AnimalTypes.Octopus;
+        }
+        else if (rand < .8f)
+        {
+            return AnimalTypes.Snail;
+        }
+        else
+        {
+            return AnimalTypes.Turtle;
+        }
+    }
+
 
     public void Spawn()
     {
@@ -67,7 +93,7 @@ public class SpawnManager : Singleton<SpawnManager>
         SpriteRenderer newAnimal = Instantiate(animalPrefab);
 
         // Change sprite
-        newAnimal.sprite = sprites[(int)AnimalTypes.Elephant];
+        newAnimal.sprite = sprites[(int) PickRandomCreature()];
 
         // Change color
         newAnimal.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
