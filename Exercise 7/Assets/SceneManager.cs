@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class SceneManager : MonoBehaviour
 {
@@ -19,6 +20,23 @@ public class SceneManager : MonoBehaviour
 
         GameObject monster = Instantiate(monsterPrefabs[i], RandomVector3(), Quaternion.identity);
         monsters.Add(monster);
+    }
+
+    public void RemoveMonster()
+    {
+        if (monsters.Count > 0)
+        {
+            Destroy(monsters[0]);
+            monsters.RemoveAt(0);
+        }
+    }
+    public void ClearMonsters()
+    {
+        foreach (GameObject monster in monsters)
+        {
+            Destroy(monster);
+        }
+        monsters.Clear();
     }
 
     public Vector3 RandomVector3()
@@ -43,9 +61,6 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (monsters.Count < 10)
-        {
-            CreateMonster();
-        }
+        
     }
 }

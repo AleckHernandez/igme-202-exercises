@@ -83,13 +83,6 @@ public class PhysicsObject : MonoBehaviour
     void Update()
     {
 
-        
-
-        velocity += acceleration * Time.deltaTime;
-        position += velocity * Time.deltaTime;
-
-        direction = velocity.normalized;
-
         if (gravity)
         {
             ApplyGravity();
@@ -98,6 +91,13 @@ public class PhysicsObject : MonoBehaviour
         {
             ApplyFriction();
         }
+
+        velocity += acceleration * Time.deltaTime;
+        position += velocity * Time.deltaTime;
+
+        direction = velocity.normalized;
+
+        
         Bounce();
 
         transform.position = position;
