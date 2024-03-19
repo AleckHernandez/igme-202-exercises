@@ -64,8 +64,10 @@ public class SceneManager : MonoBehaviour
 
     public void OnMouseMove(InputAction.CallbackContext context)
     {
-        Vector3 vect = context.ReadValue<Vector3>();
+        Vector3 vect = context.ReadValue<Vector2>();
         mouseVector = Camera.main.ScreenToWorldPoint(vect);
+        mouseVector.z = 0;
+        transform.position = mouseVector;
     }
 
     // Update is called once per frame

@@ -34,7 +34,8 @@ public class PhysicsObject : MonoBehaviour
     public void ApplyGravity() 
     {
         Vector3 gravity = new Vector3(0, -gravStrength, 0);
-        ApplyForce(gravity * mass);
+        acceleration += gravity;
+        //ApplyForce(gravity * mass);
     }
 
     public void LookRotation()
