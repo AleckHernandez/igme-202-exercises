@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
 public class SceneManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class SceneManager : MonoBehaviour
     private List<GameObject> monsterPrefabs;
 
     private List<GameObject> monsters = new List<GameObject>();
+
+    private Vector3 mouseVector;
 
     private static Vector3 min, max;
 
@@ -58,9 +61,21 @@ public class SceneManager : MonoBehaviour
     public static Vector3 Min { get { return min; } }
     public static Vector3 Max { get { return max; } }
 
+
+    public void OnMouseMove(InputAction.CallbackContext context)
+    {
+        Vector3 vect = context.ReadValue<Vector3>();
+        mouseVector = Camera.main.ScreenToWorldPoint(vect);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        foreach(GameObject monster in monsters)
+        {
+            Vector3 dirVect = mouseVector - monster.GetComponent<PhysicsObject>().position;
+
+            monster.GetComponent<PhysicsObject>().ApplyForce(dirVect);
+        }
     }
 }

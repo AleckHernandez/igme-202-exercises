@@ -6,12 +6,14 @@ using UnityEngine;
 public class PhysicsObject : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 position, direction, velocity, acceleration;
+    private Vector3 direction, velocity, acceleration;
     [SerializeField]
     private float mass, muk, gravStrength, maxSpeed;
 
     [SerializeField]
     private bool friction, gravity;
+
+    public Vector3 position;
 
     private Vector3 min, max;
 
