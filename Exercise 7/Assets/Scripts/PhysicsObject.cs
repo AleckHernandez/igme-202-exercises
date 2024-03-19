@@ -13,6 +13,8 @@ public class PhysicsObject : MonoBehaviour
     [SerializeField]
     private bool friction, gravity;
 
+    private Vector3 min, max;
+
 
     public void ApplyForce(Vector3 force)
     {
@@ -41,13 +43,34 @@ public class PhysicsObject : MonoBehaviour
 
     public void Bounce()
     {
+        if (position.x > max.x)
+        {
+            velocity.x *= -1;
+            position.x = max.x;
+        }
+        else if (position.x < min.x)
+        {
+            velocity.x *= -1;
+            position.x = min.x;
+        }
 
+        if (position.y > max.y)
+        {
+            velocity.y *= -1;
+            position.y = max.y;
+        }
+        else if (position.y < min.y)
+        {
+            velocity.y *= -1;
+            position.y = min.y;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
     }
 
     // Update is called once per frame
