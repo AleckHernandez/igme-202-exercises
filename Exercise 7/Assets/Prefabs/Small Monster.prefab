@@ -97,13 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc919e07e84377429e2b6e1afbc741c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   mass: 1
   muk: 0.8
-  gravStrength: 1
+  gravStrength: 9.8
   maxSpeed: 0
   friction: 1
   gravity: 1
+  position: {x: 0, y: 0, z: 0}

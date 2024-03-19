@@ -67,7 +67,6 @@ public class SceneManager : MonoBehaviour
         Vector3 vect = context.ReadValue<Vector2>();
         mouseVector = Camera.main.ScreenToWorldPoint(vect);
         mouseVector.z = 0;
-        transform.position = mouseVector;
     }
 
     // Update is called once per frame
