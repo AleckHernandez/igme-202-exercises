@@ -23,7 +23,7 @@ public class PhysicsObject : MonoBehaviour
 
     public void ApplyFriction()
     {
-        Vector3 friction = (velocity * -1).normalized;
+        Vector3 friction = (direction * -1);
 
         friction *= muk;
         ApplyForce(friction);
@@ -66,16 +66,29 @@ public class PhysicsObject : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-        max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        min = SceneManager.Min;
+        max = SceneManager.Max;
+        position = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        
+
+        velocity += acceleration * Time.deltaTime;
+        position += velocity * Time.deltaTime;
+
+        direction = velocity.normalized;
 
         if (gravity)
         {
@@ -85,12 +98,6 @@ public class PhysicsObject : MonoBehaviour
         {
             ApplyFriction();
         }
-
-        velocity += acceleration * Time.deltaTime;
-        position += velocity * Time.deltaTime;
-
-        direction = velocity.normalized;
-        
         Bounce();
 
         transform.position = position;
