@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class SceneManager : MonoBehaviour
     private Vector3 mouseVector;
 
     private static Vector3 min, max;
+
+    public Slider slider;
+    public Text gravText;
+
 
 
     public void CreateMonster()
@@ -77,6 +82,11 @@ public class SceneManager : MonoBehaviour
             Vector3 dirVect = mouseVector - monster.GetComponent<PhysicsObject>().position;
 
             monster.GetComponent<PhysicsObject>().ApplyForce(dirVect);
+
+            monster.GetComponent<PhysicsObject>().gravStrength = slider.value;
+            
         }
+
+        gravText.text = "Gravity Strength: " + slider.value;
     }
 }

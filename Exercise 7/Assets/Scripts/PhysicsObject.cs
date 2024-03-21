@@ -8,7 +8,9 @@ public class PhysicsObject : MonoBehaviour
     [SerializeField]
     private Vector3 direction, velocity, acceleration;
     [SerializeField]
-    private float mass, muk, gravStrength, maxSpeed;
+    private float mass, muk, maxSpeed;
+
+    public float gravStrength;
 
     [SerializeField]
     private bool friction, gravity;
