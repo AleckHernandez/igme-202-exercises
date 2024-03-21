@@ -41,31 +41,36 @@ public class PhysicsObject : MonoBehaviour
 
     public void LookRotation()
     {
-        Quaternion rotation = Quaternion.LookRotation((velocity - position), Vector3.up);
-        transform.rotation = rotation;
+
+        Vector3 target = direction;
+        Vector3 rotateToTarget = Quaternion.Euler(0, 0, 90) * target;
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, rotateToTarget);
+
+        transform.rotation = rotation = Quaternion.RotateTowards(transform.rotation, rotation, 500 * Time.deltaTime);
     }
 
     public void Bounce()
     {
         if (position.x > max.x)
         {
-            velocity.x *= -1;
+            velocity.x *= -1/ 1.05f;
             position.x = max.x;
+
         }
         else if (position.x < min.x)
         {
-            velocity.x *= -1;
+            velocity.x *= -1/ 1.05f;
             position.x = min.x;
         }
 
         if (position.y > max.y)
         {
-            velocity.y *= -1;
+            velocity.y *= -1/ 1.05f;
             position.y = max.y;
         }
         else if (position.y < min.y)
         {
-            velocity.y *= -1;
+            velocity.y *= -1/ 1.05f;
             position.y = min.y;
         }
     }
@@ -97,8 +102,16 @@ public class PhysicsObject : MonoBehaviour
         }
 
         velocity += acceleration * Time.deltaTime;
+
+        if (velocity.sqrMagnitude > (MathF.Pow(maxSpeed, 2)))
+        {
+            velocity.Normalize();
+            velocity *= maxSpeed;
+        }
+
         position += velocity * Time.deltaTime;
 
+        LookRotation();
         direction = velocity.normalized;
 
         

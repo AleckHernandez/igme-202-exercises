@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class SceneManager : MonoBehaviour
 {
 
+    // Single Responsibility Principle? What's that?
+
     [SerializeField]
     private List<GameObject> monsterPrefabs;
 

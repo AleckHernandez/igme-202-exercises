@@ -102,8 +102,8 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   mass: 1
   muk: 0.8
+  maxSpeed: 10
   gravStrength: 9.8
-  maxSpeed: 0
   friction: 1
   gravity: 1
   position: {x: 0, y: 0, z: 0}
