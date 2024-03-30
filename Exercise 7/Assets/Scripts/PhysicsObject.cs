@@ -20,6 +20,9 @@ public class PhysicsObject : MonoBehaviour
     private Vector3 min, max;
 
 
+    public float MaxSpeed { get { return maxSpeed; } }
+    public Vector3 Velocity { get { return velocity; } }
+
     public void ApplyForce(Vector3 force)
     {
         acceleration += force / mass;
