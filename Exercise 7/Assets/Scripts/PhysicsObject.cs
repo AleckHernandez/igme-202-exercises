@@ -20,6 +20,9 @@ public class PhysicsObject : MonoBehaviour
     private Vector3 min, max;
 
 
+    public float radius;
+
+
     public float MaxSpeed { get { return maxSpeed; } }
     public Vector3 Velocity { get { return velocity; } }
 
@@ -80,14 +83,12 @@ public class PhysicsObject : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        radius = GetComponent<SpriteRenderer>().bounds.extents.y;
+
         min = SceneManager.Min;
         max = SceneManager.Max;
         position = transform.position;
@@ -108,11 +109,12 @@ public class PhysicsObject : MonoBehaviour
 
         velocity += acceleration * Time.deltaTime;
 
-        if (velocity.sqrMagnitude > (MathF.Pow(maxSpeed, 2)))
+        /*if (velocity.sqrMagnitude > (MathF.Pow(maxSpeed, 2)))
         {
             velocity.Normalize();
             velocity *= maxSpeed;
-        }
+        }*/
+        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
         position += velocity * Time.deltaTime;
 
