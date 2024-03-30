@@ -42,6 +42,7 @@ public class PhysicsObject : MonoBehaviour
         ApplyForce(gravity * mass);
     }
 
+    /*
     public void LookRotation()
     {
 
@@ -51,6 +52,7 @@ public class PhysicsObject : MonoBehaviour
 
         transform.rotation = rotation = Quaternion.RotateTowards(transform.rotation, rotation, 500 * Time.deltaTime);
     }
+    */
 
     public void Bounce()
     {
@@ -114,7 +116,8 @@ public class PhysicsObject : MonoBehaviour
 
         position += velocity * Time.deltaTime;
 
-        LookRotation();
+        
+
         direction = velocity.normalized;
 
         
@@ -122,7 +125,10 @@ public class PhysicsObject : MonoBehaviour
 
         transform.position = position;
 
-        
+        //LookRotation();
+        transform.rotation = Quaternion.LookRotation(Vector3.back, direction);
+
+
 
         acceleration = Vector3.zero;
 
