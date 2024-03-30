@@ -17,7 +17,7 @@ public class PhysicsObject : MonoBehaviour
 
     public Vector3 position;
 
-    private Vector3 min, max;
+    private Vector2 screenSize = Vector2.zero;
 
 
     public float radius;
@@ -59,27 +59,13 @@ public class PhysicsObject : MonoBehaviour
 
     public void Bounce()
     {
-        if (position.x > max.x)
+        if (position.x > screenSize.x || position.x < -screenSize.x)
         {
-            velocity.x *= -1/ 1.05f;
-            position.x = max.x;
-
+            velocity.x *= -1f;
         }
-        else if (position.x < min.x)
+        if (position.y > screenSize.y || position.y < -screenSize.y)
         {
-            velocity.x *= -1/ 1.05f;
-            position.x = min.x;
-        }
-
-        if (position.y > max.y)
-        {
-            velocity.y *= -1/ 1.05f;
-            position.y = max.y;
-        }
-        else if (position.y < min.y)
-        {
-            velocity.y *= -1/ 1.05f;
-            position.y = min.y;
+            velocity.y *= -1f;
         }
     }
 
@@ -89,8 +75,8 @@ public class PhysicsObject : MonoBehaviour
     {
         radius = GetComponent<SpriteRenderer>().bounds.extents.y;
 
-        min = SceneManager.Min;
-        max = SceneManager.Max;
+        screenSize.y = Camera.main.orthographicSize;
+        screenSize.x = screenSize.y * Camera.main.aspect;
         position = transform.position;
     }
 
@@ -116,8 +102,8 @@ public class PhysicsObject : MonoBehaviour
         }*/
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
-        position += velocity * Time.deltaTime;
 
+        position += velocity * Time.deltaTime;
         
 
         direction = velocity.normalized;
@@ -125,7 +111,10 @@ public class PhysicsObject : MonoBehaviour
         
         Bounce();
 
+
+
         transform.position = position;
+
 
         //LookRotation();
         transform.rotation = Quaternion.LookRotation(Vector3.back, direction);

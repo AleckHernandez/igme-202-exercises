@@ -7,8 +7,7 @@ public abstract class Agent : MonoBehaviour
 
     [SerializeField]
     protected PhysicsObject physicsObject;
-    [SerializeField]
-    protected float maxSpeed;
+
     [SerializeField]
     protected Vector3 maxForce;
 
