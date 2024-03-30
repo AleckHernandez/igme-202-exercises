@@ -13,4 +13,16 @@ public class Fleer : Agent
         return fleeForce;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, physicsObject.Velocity);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Flee(target));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, -Seek(target));
+    }
+
 }
