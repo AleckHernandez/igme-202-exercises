@@ -58,6 +58,11 @@ public abstract class Agent : MonoBehaviour
     }
 
 
-
+    protected bool CircleCollision(GameObject target)
+    {
+        Vector3 dVec = gameObject.transform.position - target.transform.position; // distance vector
+        float dist = dVec.magnitude; // magnitude of distance vector
+        return dist < (target.GetComponent<PhysicsObject>().radius + gameObject.GetComponent<PhysicsObject>().radius);
+    }
 
 }

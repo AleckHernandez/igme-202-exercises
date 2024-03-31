@@ -103,7 +103,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   mass: 1
   muk: 0.8
-  maxSpeed: 10
+  maxSpeed: 20
   gravStrength: 9.8
   friction: 1
   gravity: 1
@@ -122,6 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   physicsObject: {fileID: 1846151338006217682}
-  maxSpeed: 5
   maxForce: {x: 0, y: 0, z: 0}
   target: {fileID: 0}

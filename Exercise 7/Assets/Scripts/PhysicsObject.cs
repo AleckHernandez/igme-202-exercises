@@ -26,6 +26,8 @@ public class PhysicsObject : MonoBehaviour
     public float MaxSpeed { get { return maxSpeed; } }
     public Vector3 Velocity { get { return velocity; } }
 
+    public Vector2 ScreenSize { get { return screenSize; } }
+
     public void ApplyForce(Vector3 force)
     {
         acceleration += force / mass;
@@ -62,10 +64,12 @@ public class PhysicsObject : MonoBehaviour
         if (position.x > screenSize.x || position.x < -screenSize.x)
         {
             velocity.x *= -1f;
+            position.x = Mathf.Clamp(position.x, -screenSize.x, screenSize.x);
         }
         if (position.y > screenSize.y || position.y < -screenSize.y)
         {
             velocity.y *= -1f;
+            position.y = Mathf.Clamp(position.y, -screenSize.y, screenSize.y);
         }
     }
 
@@ -126,4 +130,7 @@ public class PhysicsObject : MonoBehaviour
 
         
     }
+
+
+    
 }

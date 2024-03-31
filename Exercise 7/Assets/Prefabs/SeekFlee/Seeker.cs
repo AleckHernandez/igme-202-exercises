@@ -9,8 +9,29 @@ public class Seeker : Agent
 
     protected override Vector3 CalculateSteeringForces()
     {
+        if (CircleCollision(target.gameObject))
+        {
+            teleport(target.gameObject);
+        }
+
         Vector3 seekForce = Seek(target);
+
         return seekForce;
+    }
+
+    private void teleport(GameObject target)
+    {
+        Vector3 newPosition;
+        Vector2 bounds = gameObject.GetComponent<PhysicsObject>().ScreenSize;
+
+        float x = Random.Range(-bounds.x, bounds.x);
+        float y = Random.Range(-bounds.y, bounds.y);
+
+        newPosition = new Vector3(x, y, 0);
+
+
+        target.GetComponent<PhysicsObject>().position = newPosition;
+        target.transform.position = newPosition;
     }
 
 
