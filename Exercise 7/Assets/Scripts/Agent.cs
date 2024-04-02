@@ -57,6 +57,25 @@ public abstract class Agent : MonoBehaviour
         return Flee(target.transform.position);
     }
 
+    public Vector3 Evade(Agent target)
+    {
+        return Flee(target.CalcFuturePosition(5f));
+    }
+
+    public Vector3 Wander(float time, float radius)
+    {
+        Vector3 futurePosition = CalcFuturePosition(time);
+
+        float randAngle = Random.Range(0f, 2f * Mathf.PI);
+
+        Vector3 wanderTarget = futurePosition;
+
+        wanderTarget.x += Mathf.Cos(randAngle) * radius;
+        wanderTarget.y += Mathf.Sin(randAngle) * radius;
+
+        return Seek(wanderTarget);
+    }
+
 
     protected bool CircleCollision(GameObject target)
     {
@@ -64,5 +83,13 @@ public abstract class Agent : MonoBehaviour
         float dist = dVec.magnitude; // magnitude of distance vector
         return dist < (target.GetComponent<PhysicsObject>().radius + gameObject.GetComponent<PhysicsObject>().radius);
     }
+
+
+    public Vector3 CalcFuturePosition(float futureTime)
+    {
+        return transform.position + (physicsObject.Velocity * futureTime);
+    }
+
+    
 
 }
