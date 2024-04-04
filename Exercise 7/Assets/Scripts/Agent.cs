@@ -9,7 +9,9 @@ public abstract class Agent : MonoBehaviour
     protected PhysicsObject physicsObject;
 
     [SerializeField]
-    protected Vector3 maxForce;
+    private float maxForce;
+
+    protected Vector3 totalForces = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +22,13 @@ public abstract class Agent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 steeringForce = CalculateSteeringForces();
+        totalForces += CalculateSteeringForces();
 
-        physicsObject.ApplyForce(steeringForce);
+        totalForces = Vector3.ClampMagnitude(totalForces, maxForce);
+
+        physicsObject.ApplyForce(totalForces);
+
+        totalForces = Vector3.zero;
     }
 
     protected abstract Vector3 CalculateSteeringForces();
@@ -74,6 +80,24 @@ public abstract class Agent : MonoBehaviour
         wanderTarget.y += Mathf.Sin(randAngle) * radius;
 
         return Seek(wanderTarget);
+    }
+
+    public Vector3 StayInBounds()
+    {
+        Vector3 steeringForce = Vector3.zero;
+
+        if (CheckIfInBounds(transform.position))
+        {
+            // apply all steering forces
+            steeringForce += Seek(Vector3.zero);
+        }
+
+        return steeringForce;
+    }
+
+    protected bool CheckIfInBounds(Vector3 position)
+    {
+        return false;
     }
 
 

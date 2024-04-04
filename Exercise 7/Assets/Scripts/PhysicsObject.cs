@@ -113,7 +113,7 @@ public class PhysicsObject : MonoBehaviour
         direction = velocity.normalized;
 
         
-        Bounce();
+        //Bounce();
 
 
 

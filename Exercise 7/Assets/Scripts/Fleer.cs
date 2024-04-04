@@ -10,7 +10,10 @@ public class Fleer : Agent
     protected override Vector3 CalculateSteeringForces()
     {
         Vector3 fleeForce = Flee(target);
-        return fleeForce;
+
+        Vector3 boundsForce = StayInBounds();
+
+        return fleeForce + boundsForce;
     }
 
     private void OnDrawGizmosSelected()

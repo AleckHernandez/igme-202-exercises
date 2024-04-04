@@ -16,7 +16,9 @@ public class Seeker : Agent
 
         Vector3 seekForce = Seek(target);
 
-        return seekForce;
+        Vector3 boundsForce = StayInBounds();
+
+        return seekForce + boundsForce;
     }
 
     private void teleport(GameObject target)
