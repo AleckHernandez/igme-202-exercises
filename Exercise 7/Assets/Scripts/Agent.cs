@@ -9,9 +9,11 @@ public abstract class Agent : MonoBehaviour
     protected PhysicsObject physicsObject;
 
     [SerializeField]
-    private float maxForce;
+    private float maxForce = 5f;
 
     protected Vector3 totalForces = Vector3.zero;
+
+    private float previousAngle = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -68,13 +70,18 @@ public abstract class Agent : MonoBehaviour
         return Flee(target.CalcFuturePosition(5f));
     }
 
-    public Vector3 Wander(float time, float radius)
+    public Vector3 Wander(float time, float radius, float deviation)
     {
         Vector3 futurePosition = CalcFuturePosition(time);
 
-        float randAngle = Random.Range(0f, 2f * Mathf.PI);
+        //float randAngle = Random.Range(0f, 2f * Mathf.PI);
+        float randAngle = previousAngle + deviation;
+
+        previousAngle = randAngle;
 
         Vector3 wanderTarget = futurePosition;
+
+        float updateRadius = radius * futurePosition.magnitude;
 
         wanderTarget.x += Mathf.Cos(randAngle) * radius;
         wanderTarget.y += Mathf.Sin(randAngle) * radius;
@@ -86,9 +93,11 @@ public abstract class Agent : MonoBehaviour
     {
         Vector3 steeringForce = Vector3.zero;
 
-        if (CheckIfInBounds(transform.position))
+        Vector3 futurePosition = CalcFuturePosition(.05f); // Calculate future position
+
+        if (CheckIfInBounds(futurePosition))
         {
-            // apply all steering forces
+            // If future position is out of bounds, steer back in bounds
             steeringForce += Seek(Vector3.zero);
         }
 
@@ -97,6 +106,13 @@ public abstract class Agent : MonoBehaviour
 
     protected bool CheckIfInBounds(Vector3 position)
     {
+        if (position.x > AgentManager.Instance.ScreenSize.x ||
+            position.x < -AgentManager.Instance.ScreenSize.x ||
+            position.y > AgentManager.Instance.ScreenSize.y ||
+            position.y < -AgentManager.Instance.ScreenSize.y)
+        {
+            return true;
+        }
         return false;
     }
 
